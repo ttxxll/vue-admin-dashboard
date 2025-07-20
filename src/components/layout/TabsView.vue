@@ -13,9 +13,9 @@ export default {
   name: 'TabsView',
   data() {
     return {
-      tabs: [{ path: '/', name: 'Home', title: '首页', closable: false }],
+      tabs: [{ path: '/home', name: 'Home', title: '首页', closable: false }],
       //组件路由值，默认激活首页tab
-      activeTab: '/',
+      activeTab: '/home',
       // 缓存路由映射配置表
       routeMenuMap: new Map()
     }

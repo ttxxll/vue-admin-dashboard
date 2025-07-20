@@ -19,7 +19,7 @@ const routes = [
     component: Layout, // 使用布局组件
     children: [
       {
-        path: '', // 根路径默认显示Home组件
+        path: '/home', // 根路径默认显示Home组件
         name: 'Home',
         component: Home,
         meta: { title: '首页' } 
