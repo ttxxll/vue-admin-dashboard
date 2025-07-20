@@ -21,22 +21,26 @@ const routes = [
       {
         path: '', // 根路径默认显示Home组件
         name: 'Home',
-        component: Home
+        component: Home,
+        meta: { title: '首页' } 
       },
       {
-        path: 'merchant-manage',
+        path: '/merchant-manage',
         name: 'MerchantManage',
-        component: MerchantManage
+        component: MerchantManage,
+        meta: { title: '商户管理' }
       },
       {
-        path: 'merchant-business',
+        path: '/merchant-business',
         name: 'MerchantBusiness',
-        component: MerchantBusiness
+        component: MerchantBusiness,
+        meta: { title: '商户业务' }
       },
       {
-        path: 'recharge-record',
+        path: '/recharge-record',
         name: 'RechargeRecord',
-        component: RechargeRecord
+        component: RechargeRecord,
+        meta: { title: '充值记录' }
       }
     ]
   },

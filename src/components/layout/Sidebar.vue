@@ -6,7 +6,7 @@
       <div class="logo">1</div>
     </div>
     <!-- 菜单 -->
-    <el-menu default-active="1" class="el-menu-vertical-demo" background-color="#2f4050" text-color="#fff"
+    <el-menu ref="menu" default-active="1" class="el-menu-vertical-demo" background-color="#2f4050" text-color="#fff"
       active-text-color="#ffd04b" router :unique-opened="true">
       <!-- 首页菜单 -->
       <el-menu-item index="/">
@@ -20,15 +20,15 @@
           <i class="el-icon-menu"></i>
           <span>业务管理</span>
         </template>
-        <!-- 商户业务 -->
-        <el-menu-item index="/merchant-business" v-if="!sidebarCollapsed">
-          <i class="el-icon-s-shop"></i>
-          <span slot="title">商户业务</span>
-        </el-menu-item>
         <!-- 商户管理 -->
         <el-menu-item index="/merchant-manage" v-if="!sidebarCollapsed">
           <i class="el-icon-user"></i>
           <span slot="title">商户管理</span>
+        </el-menu-item>
+        <!-- 商户业务 -->
+        <el-menu-item index="/merchant-business" v-if="!sidebarCollapsed">
+          <i class="el-icon-s-shop"></i>
+          <span slot="title">商户业务</span>
         </el-menu-item>
         <!-- 充值记录 -->
         <el-menu-item index="/recharge-record" v-if="!sidebarCollapsed">
@@ -53,8 +53,17 @@ export default {
     // computed 会动态追踪依赖（这里依赖 $store.state），当依赖变化时，计算属性会自动重新计算
     // Vue 中模板与计算属性的关联完全依赖名称匹配
     sidebarCollapsed() {
-      console.log('当前折叠状态：', this.$store.state.sidebarCollapsed);
       return this.$store.state.sidebarCollapsed;
+    }
+  },
+  watch: {
+    // 监听路由变化
+    '$route'(to, from) {
+      console.log('路由变化:', from.path, '→', to.path);
+      console.log(this.activeMenu);
+      this.$nextTick(() => {
+        this.$refs.menu.activeIndex = this.activeMenu;
+      });
     }
   },
   mounted() {
@@ -70,20 +79,22 @@ export default {
 /* 基础样式 */
 .sidebar {
   width: 200px;
-  min-width: 200px; /* 防止被其他样式覆盖 */
+  min-width: 200px;
+  /* 防止被其他样式覆盖 */
   max-width: 200px;
   transition: all 0.3s ease;
   overflow: hidden;
   position: relative;
   z-index: 1;
-  height: 100%; 
+  height: 100%;
   min-height: 100vh;
-  background-color: #2f4050; 
+  background-color: #2f4050;
 }
 
 /* 折叠状态 */
 .sidebar.collapsed {
-  width: 64px !important; /* 强制覆盖 */
+  width: 64px !important;
+  /* 强制覆盖 */
   min-width: 64px;
   max-width: 64px;
 }
@@ -122,7 +133,8 @@ export default {
 .logo {
   font-size: 20px;
   font-weight: bold;
-  color: #ffd04b; /* 使用对比色确保可见 */
+  color: #ffd04b;
+  /* 使用对比色确保可见 */
 }
 
 .el-menu-item,
@@ -152,5 +164,4 @@ export default {
   z-index: 100;
   box-shadow: 2px 0 12px rgba(0, 0, 0, 0.1);
 }
-
 </style>
